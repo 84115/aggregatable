@@ -21,9 +21,7 @@ class ArticlesController extends Controller
     public function show(Article $article)
     {
         return view('article', [
-            'title' => $article->title,
-            'description' => $article->description,
-            'content' => $article->content,
+            'article' => $article,
         ]);
     }
 }

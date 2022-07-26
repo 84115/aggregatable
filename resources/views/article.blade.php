@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>{{ $title }}</title>
+        <title>{{ $article->title }}</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
@@ -88,25 +88,26 @@
 
         <header>
             <h1>
-                {{ $title }}
+                {{ $article->title }}
             </h1>
         </header>
 
         <!-- Page Content -->
         <main>
-            <x-slot name="header">{{ $title }}</x-slot>
+            <x-slot name="header">{{ $article->title }}</x-slot>
 
-            <p>{{ $description }}</p>
+            <div style="color: grey;"><em>by {{ $article->author }} - {{ $article->created_at }}</em></div>
+            <p>{{ $article->description }}</p>
 
-            {!! $content !!}
+            {!! $article->content !!}
 
             <hr>
 
             <p style="text-align: center;">Recommended Articles</p>
 
             <ul>
-            @foreach (\App\Models\Article::orderByDesc('created_at')->limit(10)->get() as $article)
-                <li><a href="{{ url('article/' . $article->slug) }}">{{ $article->title }}</a></li>
+            @foreach (\App\Models\Article::orderByDesc('created_at')->limit(10)->get() as $recommended)
+                <li><a href="{{ url('article/' . $recommended->slug) }}">{{ $recommended->title }}</a></li>
             @endforeach
             </ul>
 
