@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use Faker\Generator as Faker;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Arr;
@@ -50,14 +51,52 @@ class generateArticleFromSiteAubtuDotbiz extends Command
                 ->reject(fn($value, $key) => $value['tag'] === 'h1')
                 ->reject(fn($value, $key) => $value['tag'] === 'h2')
                 ->reject(fn($value, $key) => $value['tag'] === 'h4')
+                ->values()
                 ->toArray(),
-            // 'imagesWithDetails' => $web->imagesWithDetails,
+            'imagesWithDetails' => collect($web->imagesWithDetails)
+                ->reject(fn($value, $key) => Str::startsWith($value['url'], ['data:image', 'https://aubtu.biz/wp-content/uploads']))
+                ->filter(fn($value, $key) => Str::startsWith($value['url'], ['https://cdn3s.com']))
+                ->values()
+                ->toArray(),
             // --------------------------------------------
             // 'description' => $web->description, // Appears empty, maybe use first paragraph expert instead.
             // 'keywords' => $web->contentKeywords, // Results are pretty messy
         ];
 
-        print_r($data);
+        $imageIndex = 0;
+
+        $article = [
+            [
+                'tag' => 'img',
+                'src' => $data['imagesWithDetails'][$imageIndex]['url'],
+            ],
+        ];
+
+        $imageIndex++;
+
+        foreach ($data['outline'] as $key => $line)
+        {
+            if ($key === 0) {
+                continue;
+            }
+
+            if ($line['tag'] === 'h3') {
+                $article[] = $line;
+
+                if (!empty($data['imagesWithDetails'][$imageIndex])) {
+                    $article[] = [
+                        'tag' => 'img',
+                        'src' => $data['imagesWithDetails'][$imageIndex]['url'],
+                    ];
+                
+                    $imageIndex++;
+                }
+            } else {
+                $article[] = $line;
+            }
+        }
+
+        print_r($article);
 
         // Cache::rememberForever($url, function () use ($links) {
             // return serialize($links);
