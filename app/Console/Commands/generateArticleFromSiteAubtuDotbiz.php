@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Models\Article;
 use Faker\Generator as Faker;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Cache;
@@ -35,6 +36,8 @@ class generateArticleFromSiteAubtuDotbiz extends Command
         $data = $this->fetchHtmlAsDataArray();
         $article = $this->convertDataArrayToArticleArray($data);
         $html = $this->convertArticleArrayToHtml($article);
+
+        $this->generateArticleModel($data, $html);
 
         return 0;
     }
@@ -133,7 +136,17 @@ class generateArticleFromSiteAubtuDotbiz extends Command
             })
             ->join('');
 
-        print_r($article);
+        return $article;
+    }
+
+    private function generateArticleModel($data, $html)
+    {
+        $article = new Article;
+        $article->title = $data['title'];
+        $article->author = $data['author'];
+        $article->description = $data['description'];
+        $article->content = $html;
+        $article->save();
 
         return $article;
     }
