@@ -73,6 +73,7 @@ class generateArticleFromSiteAubtuDotbiz extends Command
             // --------------------------------------------
             // 'description' => $web->description, // Appears empty, maybe use first paragraph expert instead.
             // 'keywords' => $web->contentKeywords, // Results are pretty messy
+            'keywords' => Str::of(implode(',', $web->contentKeywords))->replaceMatches('/ {2,}/', ',')->value(),
         ];
 
         return $data;
@@ -145,6 +146,7 @@ class generateArticleFromSiteAubtuDotbiz extends Command
         $article->title = $data['title'];
         $article->author = $data['author'];
         $article->description = $data['description'];
+        $article->keywords = $data['keywords'];
         $article->content = $html;
         $article->save();
 
