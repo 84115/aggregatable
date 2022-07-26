@@ -143,6 +143,7 @@ class generateArticleFromSiteAubtuDotbiz extends Command
     private function generateArticleModel($data, $html)
     {
         $article = new Article;
+        $article->slug = Str::slug($data['title']);
         $article->title = $data['title'];
         $article->author = $data['author'];
         $article->description = $data['description'];
