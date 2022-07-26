@@ -36,8 +36,6 @@ class generateArticleFromSiteAubtuDotbiz extends Command
         $article = $this->convertDataArrayToArticleArray($data);
         $html = $this->convertArticleArrayToHtml($article);
 
-        print_r($article);
-
         return 0;
     }
 
@@ -121,6 +119,22 @@ class generateArticleFromSiteAubtuDotbiz extends Command
 
     private function convertArticleArrayToHtml($article)
     {
+        $article = collect($article)
+            ->map(function($row) {
+                $tag = $row['tag'] ?? '';
+                $src = $row['src'] ?? '';
+                $content = $row['content'] ?? '';
+
+                if ($tag === 'img') {
+                    return "<$tag src=\"$src\"/>";
+                }
+
+                return "<$tag>$content</$tag>";
+            })
+            ->join('');
+
+        print_r($article);
+
         return $article;
     }
 }
