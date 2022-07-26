@@ -47,8 +47,20 @@ class generateArticleFromSiteAubtuDotbiz extends Command
         $urls = [
             'https://aubtu.biz/81303/',
             'https://aubtu.biz/4905/',
-            'https://aubtu.biz/8969/',
+            // 'https://aubtu.biz/8969/', // blacklist
             'https://aubtu.biz/14248/',
+            'https://aubtu.biz/18039/',
+            'https://aubtu.biz/31770/',
+            'https://aubtu.biz/37455/',
+            'https://aubtu.biz/17267/',
+            'https://aubtu.biz/17756/',
+            'https://aubtu.biz/18628/',
+            'https://aubtu.biz/18602/',
+            'https://aubtu.biz/7612/',
+            'https://aubtu.biz/30587/',
+            'https://aubtu.biz/31825/',
+            'https://aubtu.biz/23742/',
+            'https://aubtu.biz/2960/',
         ];
 
         $url = $urls[count($urls) - 1];
