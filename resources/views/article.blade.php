@@ -112,11 +112,29 @@
 
             <hr>
 
-            <p>Everything Daily is a content aggregator website that provides users with entertainment information and creative ideas to help them relax and feel more optimistic. Our contents cover different topics, ranging from animals, nature, garden, home decor, zodiac to funny stories!</p>
+            <p><strong>Everything Daily</strong> is a content aggregator website that provides users
+            with entertainment information and creative ideas to help them relax and
+            feel more optimistic. Our contents cover different topics, ranging from
+            <a href="#">animals</a>, <a href="#">nature</a>, <a href="#">garden</a>,
+            <a href="#">home decor</a>, <a href="#">zodiac</a> to <a href="#">funny stories!</a>
+            </p>
 
             <hr>
 
             <p style="text-align: center;">Contact us: wip@everything-daily.com</p>
+
+            <hr>
+
+            <p style="text-align: center;">
+            <a href="#">About US</a>
+            <a href="#">Contact US</a>
+            <a href="#">Cookie Policy</a>
+            </p>
+            <p style="text-align: center;">
+            <a href="#">Cookie Policy</a>
+            <a href="#">DMCA</a>
+            <a href="#">Terms of Service</a>
+            </p>
         </main>
     </body>
 </html>
