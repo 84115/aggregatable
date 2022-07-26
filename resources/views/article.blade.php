@@ -82,8 +82,6 @@
         </style>
     </head>
     <body class="antialiased">
-        {{-- @include('layouts.navigation') --}}
-
         <div class="tagline">Animals Daily</div>
 
         <header>
