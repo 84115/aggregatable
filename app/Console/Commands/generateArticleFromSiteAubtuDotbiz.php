@@ -44,7 +44,14 @@ class generateArticleFromSiteAubtuDotbiz extends Command
 
     private function fetchHtmlAsDataArray()
     {
-        $url = 'https://aubtu.biz/81303/';
+        $urls = [
+            'https://aubtu.biz/81303/',
+            'https://aubtu.biz/4905/',
+            'https://aubtu.biz/8969/',
+            'https://aubtu.biz/14248/',
+        ];
+
+        $url = $urls[count($urls) - 1];
 
         // if (Cache::has($url)) {
         //     return unserialize(Cache::get($url));
@@ -66,8 +73,9 @@ class generateArticleFromSiteAubtuDotbiz extends Command
                 ->values()
                 ->toArray(),
             'imagesWithDetails' => collect($web->imagesWithDetails)
-                ->reject(fn($value, $key) => Str::startsWith($value['url'], ['data:image', 'https://aubtu.biz/wp-content/uploads']))
-                ->filter(fn($value, $key) => Str::startsWith($value['url'], ['https://cdn3s.com']))
+                ->reject(fn($value, $key) => Str::startsWith($value['url'], ['data:image']))
+                ->filter(fn($value, $key) => empty($value['alt']))
+                ->filter(fn($value, $key) => Str::startsWith($value['url'], ['https://cdn3s.com', 'https://i.imgur.com', 'http://aubtu.biz/wp-content', 'https://aubtu.biz/wp-content']))
                 ->values()
                 ->toArray(),
             // --------------------------------------------
