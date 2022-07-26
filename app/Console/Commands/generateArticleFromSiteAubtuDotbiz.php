@@ -33,17 +33,6 @@ class generateArticleFromSiteAubtuDotbiz extends Command
      */
     public function handle()
     {
-        $data = $this->fetchHtmlAsDataArray();
-        $article = $this->convertDataArrayToArticleArray($data);
-        $html = $this->convertArticleArrayToHtml($article);
-
-        $this->generateArticleModel($data, $html);
-
-        return 0;
-    }
-
-    private function fetchHtmlAsDataArray()
-    {
         $urls = [
             'https://aubtu.biz/81303/',
             'https://aubtu.biz/4905/',
@@ -63,8 +52,23 @@ class generateArticleFromSiteAubtuDotbiz extends Command
             'https://aubtu.biz/2960/',
         ];
 
-        $url = $urls[count($urls) - 1];
+        // $url = $urls[count($urls) - 1];
 
+        foreach ($urls as $url) {
+            $data = $this->fetchHtmlAsDataArray($url);
+            $article = $this->convertDataArrayToArticleArray($data);
+            $html = $this->convertArticleArrayToHtml($article);
+    
+            $this->generateArticleModel($data, $html);
+
+            sleep(4);
+        }
+
+        return 0;
+    }
+
+    private function fetchHtmlAsDataArray($url)
+    {
         // if (Cache::has($url)) {
         //     return unserialize(Cache::get($url));
         // }
@@ -75,7 +79,8 @@ class generateArticleFromSiteAubtuDotbiz extends Command
 
         $data = [
             'title' => $web->title,
-            'author' => $web->author, // Maybe generate this?
+            'author' => 'James Ball',
+            // 'author' => $web->author, // Maybe generate this?
             'description' => $web->cleanParagraphs[0],
             'outline' => collect($web->cleanOutlineWithParagraphs)
                 ->reject(fn($value, $key) => empty($value['tag']))
@@ -167,6 +172,7 @@ class generateArticleFromSiteAubtuDotbiz extends Command
         $article->title = $data['title'];
         $article->author = $data['author'];
         $article->description = $data['description'];
+        $article->hero = $data['imagesWithDetails'][0]['url'];
         $article->keywords = $data['keywords'];
         $article->content = $html;
         $article->save();

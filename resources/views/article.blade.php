@@ -26,9 +26,9 @@
             }
 
             .tagline {
-                max-width: 260px;
+                max-width: 280px;
                 text-align: center;
-                font-size: 2.6rem;
+                font-size: 2.4rem;
                 font-weight: bold;
                 text-transform: capitalize;
                 font-family: serif;
@@ -67,12 +67,14 @@
             }
 
             ul {
-                list-style-type: decimal;
+                /*list-style-type: decimal;*/
+                list-style-type: none;
                 padding-inline-start: 0;
             }
 
             li {
-                margin-top: 1rem;
+                /*margin-top: 1rem;*/
+                margin-top: 3rem;
             }
 
             a {
@@ -94,22 +96,27 @@
         <main>
             <x-slot name="header">{{ $article->title }}</x-slot>
 
-            <div style="color: grey;"><em>by {{ $article->author }} - {{ $article->created_at }}</em></div>
+            <div style="color: grey;"><em>By {{ $article->author }} - {{ $article->created_at->format('Y/m/d') }}</em></div>
             <p>{{ $article->description }}</p>
 
             {!! $article->content !!}
 
             <hr>
 
-            <p style="text-align: center;">Recommended Articles</p>
+            <p style="text-align: center; text-align: center; font-size: 2rem; font-weight: bold; font-family: serif;">Recommended Articles</p>
 
             <ul>
             @foreach (\App\Models\Article::orderByDesc('created_at')->limit(10)->get() as $recommended)
-                <li><a href="{{ url('article/' . $recommended->slug) }}">{{ $recommended->title }}</a></li>
+                <li>
+                    <a href="{{ url('article/' . $recommended->slug) }}">
+                        <img style="margin-bottom:0" src="{{ $recommended->hero }}" alt="{{ $recommended->title }}">
+                        <h4 style="margin-top:0">{{ $recommended->title }}</h4>
+                    </a>
+                </li>
             @endforeach
             </ul>
 
-            <hr>
+            {{-- <hr>
 
             <p><strong>Everything Daily</strong> is a content aggregator website that provides users
             with entertainment information and creative ideas to help them relax and
@@ -133,7 +140,9 @@
             <a href="#">Cookie Policy</a>
             <a href="#">DMCA</a>
             <a href="#">Terms of Service</a>
-            </p>
+            </p> --}}
         </main>
+
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8615852714164072" crossorigin="anonymous"></script>
     </body>
 </html>

@@ -18,6 +18,13 @@ class ArticlesController extends Controller
         exit;
     }
 
+    public function latest()
+    {
+        $article = Article::query()->OrderByDesc('created_at')->limit(1)->first();
+
+        return redirect()->to(url('article/' . $article->slug));
+    }
+
     public function show(Article $article)
     {
         return view('article', [
