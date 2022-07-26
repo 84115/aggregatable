@@ -18,10 +18,73 @@
             body {
                 font-family: 'Nunito', sans-serif;
             }
+
+            body {
+                padding: 0 2rem;
+                max-width: 640px;
+                margin: 0 auto;
+            }
+
+            .tagline {
+                max-width: 260px;
+                text-align: center;
+                font-size: 2.6rem;
+                font-weight: bold;
+                text-transform: capitalize;
+                font-family: serif;
+                border-bottom: 5px solid black;
+                margin: 2rem auto 0 auto;
+                border-top: 5px solid black;
+            }
+
+            p {
+                text-align: justify;
+            }
+
+            h1 {
+                text-align: center;
+                font-size: 1.25rem;
+                margin: 3rem auto;
+            }
+
+            h3 {
+                margin-top: 3rem;
+            }
+
+            img {
+                width: 100%;
+                margin-bottom: 30px;
+            }
+
+            main {
+                margin-bottom: 3rem;
+            }
+
+            hr {
+                background: black;
+                height: 5px;
+                margin: 3rem auto;
+            }
+
+            ul {
+                list-style-type: decimal;
+                padding-inline-start: 0;
+            }
+
+            li {
+                margin-top: 1rem;
+            }
+
+            a {
+                color: #047ded;
+                text-decoration: underline;
+            }
         </style>
     </head>
     <body class="antialiased">
         {{-- @include('layouts.navigation') --}}
+
+        <div class="tagline">Animals Daily</div>
 
         <header>
             <h1>
@@ -36,6 +99,24 @@
             <p>{{ $description }}</p>
 
             {!! $content !!}
+
+            <hr>
+
+            <p style="text-align: center;">Recommended Articles</p>
+
+            <ul>
+            @foreach (\App\Models\Article::orderByDesc('created_at')->limit(10)->get() as $article)
+                <li><a href="{{ url('article/' . $article->slug) }}">{{ $article->title }}</a></li>
+            @endforeach
+            </ul>
+
+            <hr>
+
+            <p>Everything Daily is a content aggregator website that provides users with entertainment information and creative ideas to help them relax and feel more optimistic. Our contents cover different topics, ranging from animals, nature, garden, home decor, zodiac to funny stories!</p>
+
+            <hr>
+
+            <p style="text-align: center;">Contact us: wip@everything-daily.com</p>
         </main>
     </body>
 </html>
