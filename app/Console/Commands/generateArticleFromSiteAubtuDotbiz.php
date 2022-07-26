@@ -32,6 +32,17 @@ class generateArticleFromSiteAubtuDotbiz extends Command
      */
     public function handle()
     {
+        $data = $this->fetchHtmlAsDataArray();
+        $article = $this->convertDataArrayToArticleArray($data);
+        $html = $this->convertArticleArrayToHtml($article);
+
+        print_r($article);
+
+        return 0;
+    }
+
+    private function fetchHtmlAsDataArray()
+    {
         $url = 'https://aubtu.biz/81303/';
 
         // if (Cache::has($url)) {
@@ -63,6 +74,15 @@ class generateArticleFromSiteAubtuDotbiz extends Command
             // 'keywords' => $web->contentKeywords, // Results are pretty messy
         ];
 
+        return $data;
+
+        // Cache::rememberForever($url, function () use ($links) {
+            // return serialize($links);
+        // });
+    }
+
+    private function convertDataArrayToArticleArray($data)
+    {
         $imageIndex = 0;
 
         $article = [
@@ -96,12 +116,11 @@ class generateArticleFromSiteAubtuDotbiz extends Command
             }
         }
 
-        print_r($article);
+        return $article;
+    }
 
-        // Cache::rememberForever($url, function () use ($links) {
-            // return serialize($links);
-        // });
-
-        return 0;
+    private function convertArticleArrayToHtml($article)
+    {
+        return $article;
     }
 }
