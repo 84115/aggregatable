@@ -53,6 +53,11 @@ class generateArticleFromSiteAubtuDotbiz extends Command
             'https://aubtu.biz/82819/',
             'https://aubtu.biz/82603/',
             'https://aubtu.biz/24138/',
+            'https://aubtu.biz/6684/',
+            'https://aubtu.biz/18307/',
+            'https://aubtu.biz/2844/',
+            'https://aubtu.biz/17261/',
+            'https://aubtu.biz/14598/',
         ];
 
         // $url = $urls[count($urls) - 1];
@@ -84,7 +89,7 @@ class generateArticleFromSiteAubtuDotbiz extends Command
             'title' => $web->title,
             'author' => 'James Ball',
             // 'author' => $web->author, // Maybe generate this?
-            'description' => $web->cleanParagraphs[0],
+            'description' => isset($web->cleanParagraphs[0]) ? $web->cleanParagraphs[0] : $web->title,
             'outline' => collect($web->cleanOutlineWithParagraphs)
                 ->reject(fn($value, $key) => empty($value['tag']))
                 ->reject(fn($value, $key) => $value['tag'] === 'h1')
