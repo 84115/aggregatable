@@ -50,6 +50,9 @@ class generateArticleFromSiteAubtuDotbiz extends Command
             'https://aubtu.biz/31825/',
             'https://aubtu.biz/23742/',
             'https://aubtu.biz/2960/',
+            'https://aubtu.biz/82819/',
+            'https://aubtu.biz/82603/',
+            'https://aubtu.biz/24138/',
         ];
 
         // $url = $urls[count($urls) - 1];
