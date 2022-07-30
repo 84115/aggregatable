@@ -122,7 +122,7 @@
             <p style="text-align: center; text-align: center; font-size: 2rem; font-weight: bold; font-family: serif;">Recommended Articles</p>
 
             <ul>
-            @foreach (\App\Models\Article::orderByDesc('created_at')->limit(10)->get() as $recommended)
+            @foreach (\App\Models\Article::orderByDesc('created_at')->where('id', '!=', $article->id)->limit(10)->get() as $recommended)
                 <li>
                     <a href="{{ url('article/' . $recommended->slug) }}">
                         <img style="margin-bottom:0" src="{{ $recommended->hero }}" alt="{{ $recommended->title }}">
