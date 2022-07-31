@@ -101,7 +101,7 @@
     </head>
     <body class="antialiased">
         <header>
-            <div class="tagline">Animals Daily</div>
+            <div class="tagline">{{ Str::title($article->category) }} Daily</div>
 
             <h1>{{ $article->title }}</h1>
         </header>

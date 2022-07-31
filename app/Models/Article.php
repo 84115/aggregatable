@@ -21,8 +21,6 @@ class Article extends Model
 
     public function getUrl()
     {
-        $category = 'article';
-
-        return url($category . '/' . $this->slug);
+        return url($this->category . '/' . $this->slug);
     }
 }

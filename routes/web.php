@@ -16,9 +16,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [ArticlesController::class, 'latest']);
 
-Route::get('article', [ArticlesController::class, 'index']);
-Route::get('article/{article}', [ArticlesController::class, 'show']);
-// Route::get('animals/{article}', [ArticlesController::class, 'show']);
+// Route::get('article', [ArticlesController::class, 'index']);
+// Route::get('article/{article}', [ArticlesController::class, 'show']);
+Route::get('animals/{article}', [ArticlesController::class, 'show']);
 
 Route::get('ping', function() {
     return 'pong';

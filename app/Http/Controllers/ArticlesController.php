@@ -12,7 +12,7 @@ class ArticlesController extends Controller
         $articles = Article::all();
 
         $articles->each(function($article) {
-            echo '<a href="' . url('article/' . $article->slug) . '">' . $article->slug . '</a><br>';
+            echo '<a href="' . url($article->category . '/' . $article->slug) . '">' . $article->slug . '</a><br>';
         });
 
         exit;
@@ -22,7 +22,7 @@ class ArticlesController extends Controller
     {
         $article = Article::query()->OrderByDesc('created_at')->limit(1)->first();
 
-        return redirect()->to(url('article/' . $article->slug));
+        return redirect()->to(url($article->category . '/' . $article->slug));
     }
 
     public function show(Article $article)
