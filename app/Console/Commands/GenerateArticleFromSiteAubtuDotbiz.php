@@ -10,7 +10,7 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use spekulatius\phpscraper as Scraper;
 
-class generateArticleFromSiteAubtuDotbiz extends Command
+class GenerateArticleFromSiteAubtuDotbiz extends Command
 {
     /**
      * The name and signature of the console command.
