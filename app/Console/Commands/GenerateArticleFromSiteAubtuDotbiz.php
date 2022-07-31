@@ -5,7 +5,6 @@ namespace App\Console\Commands;
 use App\Models\Article;
 use Faker\Generator as Faker;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use spekulatius\phpscraper as Scraper;
@@ -77,10 +76,6 @@ class GenerateArticleFromSiteAubtuDotbiz extends Command
 
     private function fetchHtmlAsDataArray($url)
     {
-        // if (Cache::has($url)) {
-        //     return unserialize(Cache::get($url));
-        // }
-
         $web = new Scraper();
 
         $web->go($url);
@@ -110,10 +105,6 @@ class GenerateArticleFromSiteAubtuDotbiz extends Command
         ];
 
         return $data;
-
-        // Cache::rememberForever($url, function () use ($links) {
-            // return serialize($links);
-        // });
     }
 
     private function convertDataArrayToArticleArray($data)
@@ -183,6 +174,7 @@ class GenerateArticleFromSiteAubtuDotbiz extends Command
         $article->hero = $data['imagesWithDetails'][0]['url'];
         $article->keywords = $data['keywords'];
         $article->content = $html;
+        $article->category = 'animals';
         $article->save();
 
         return $article;
