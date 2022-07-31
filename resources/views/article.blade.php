@@ -69,13 +69,11 @@
             }
 
             ul {
-                /*list-style-type: decimal;*/
                 list-style-type: none;
                 padding-inline-start: 0;
             }
 
             li {
-                /*margin-top: 1rem;*/
                 margin-top: 3rem;
             }
 
@@ -83,22 +81,33 @@
                 color: #047ded;
                 text-decoration: underline;
             }
+
+            .recommended {
+                font-family: serif;
+                font-size: 2rem;
+                font-weight: bold;
+                margin: 1rem auto;
+                text-align: center;
+            }
+
+            .center {
+                text-align: center;
+            }
+
+            .author {
+                color: grey;
+            }
         </style>
     </head>
     <body class="antialiased">
-        <div class="tagline">Animals Daily</div>
-
         <header>
-            <h1>
-                {{ $article->title }}
-            </h1>
+            <div class="tagline">Animals Daily</div>
+
+            <h1>{{ $article->title }}</h1>
         </header>
 
-        <!-- Page Content -->
         <main>
-            <x-slot name="header">{{ $article->title }}</x-slot>
-
-            <div style="color: grey;"><em>By {{ $article->author }} - {{ $article->created_at->format('Y/m/d') }}</em></div>
+            <div class="author"><em>By {{ $article->author }} - {{ $article->created_at->format('Y/m/d') }}</em></div>
             <p>{{ $article->description }}</p>
 
             <ins class="adsbygoogle"
@@ -119,14 +128,14 @@
 
             <hr>
 
-            <p style="text-align: center; text-align: center; font-size: 2rem; font-weight: bold; font-family: serif;">Recommended Articles</p>
+            <h6 class="recommended">Recommended Articles</h6>
 
             <ul>
             @foreach (\App\Models\Article::orderByDesc('created_at')->where('id', '!=', $article->id)->limit(10)->get() as $recommended)
                 <li>
                     <a href="{{ url('article/' . $recommended->slug) }}">
-                        <img style="margin-bottom:0" src="{{ $recommended->hero }}" alt="{{ $recommended->title }}">
-                        <h4 style="margin-top:0">{{ $recommended->title }}</h4>
+                        <img style="margin-bottom: 0" src="{{ $recommended->hero }}" alt="{{ $recommended->title }}">
+                        <h4 style="margin-top: 0">{{ $recommended->title }}</h4>
                     </a>
                 </li>
             @endforeach
@@ -143,16 +152,16 @@
 
             <hr>
 
-            <p style="text-align: center;">Contact us: wip@everything-daily.com</p>
+            <p class="center">Contact us: wip@everything-daily.com</p>
 
             <hr>
 
-            <p style="text-align: center;">
+            <p class="center">
             <a href="#">About US</a>
             <a href="#">Contact US</a>
             <a href="#">Cookie Policy</a>
             </p>
-            <p style="text-align: center;">
+            <p class="center">
             <a href="#">Cookie Policy</a>
             <a href="#">DMCA</a>
             <a href="#">Terms of Service</a>
