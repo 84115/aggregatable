@@ -57,9 +57,13 @@ class GenerateArticleFromSiteAubtuDotbiz extends Command
             'https://aubtu.biz/2844/',
             'https://aubtu.biz/17261/',
             'https://aubtu.biz/14598/',
+            // 'https://aubtu.biz/3970/', // Good article, but multipage!
+            'https://aubtu.biz/2016/',
+            // 'https://aubtu.biz/1457/', // cant access images!
+            'https://aubtu.biz/12862/',
         ];
 
-        // $url = $urls[count($urls) - 1];
+        $urls = [ $urls[count($urls) - 1] ];
 
         foreach ($urls as $url) {
             $data = $this->fetchHtmlAsDataArray($url);
