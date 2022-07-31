@@ -131,9 +131,9 @@
             <h6 class="recommended">Recommended Articles</h6>
 
             <ul>
-            @foreach (\App\Models\Article::orderByDesc('created_at')->where('id', '!=', $article->id)->limit(10)->get() as $recommended)
+            @foreach ($article->getRecommendedArticles() as $recommended)
                 <li>
-                    <a href="{{ url('article/' . $recommended->slug) }}">
+                    <a href="{{ $recommended->getUrl() }}">
                         <img style="margin-bottom: 0" src="{{ $recommended->hero }}" alt="{{ $recommended->title }}">
                         <h4 style="margin-top: 0">{{ $recommended->title }}</h4>
                     </a>

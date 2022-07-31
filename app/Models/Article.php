@@ -10,4 +10,19 @@ class Article extends Model
     {
         return 'slug';
     }
+
+    public function getRecommendedArticles()
+    {
+        return Article::orderByDesc('created_at')
+            ->where('id', '!=', $this->id)
+            ->limit(10)
+            ->get();
+    }
+
+    public function getUrl()
+    {
+        $category = 'article';
+
+        return url($category . '/' . $this->slug);
+    }
 }
