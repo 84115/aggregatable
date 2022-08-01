@@ -32,6 +32,7 @@ class RegenerateDatesOfAllPosts extends Command
 
         $articles = Article::query()
             ->orderByDesc('ID')
+            ->where('category', "!=", 'zodiacs')
             ->get();
 
         $counter = 0;
