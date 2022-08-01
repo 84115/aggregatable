@@ -28,7 +28,8 @@
             }
 
             .tagline {
-                max-width: 280px;
+                min-width: 280px;
+                max-width: 320px;
                 text-align: center;
                 font-size: 2.4rem;
                 font-weight: bold;
@@ -133,16 +134,9 @@
             </ul>
             @endif
 
+            <x-about />
+
             {{-- <hr>
-
-            <p><strong>Everything Daily</strong> is a content aggregator website that provides users
-            with entertainment information and creative ideas to help them relax and
-            feel more optimistic. Our contents cover different topics, ranging from
-            <a href="#">animals</a>, <a href="#">nature</a>, <a href="#">garden</a>,
-            <a href="#">home decor</a>, <a href="#">zodiac</a> to <a href="#">funny stories!</a>
-            </p>
-
-            <hr>
 
             <p class="center">Contact us: wip@everything-daily.com</p>
 

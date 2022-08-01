@@ -28,7 +28,8 @@
             }
 
             .tagline {
-                max-width: 280px;
+                min-width: 280px;
+                max-width: 320px;
                 text-align: center;
                 font-size: 2.4rem;
                 font-weight: bold;
@@ -117,6 +118,8 @@
             <x-googlead />
             @endforeach
         </main>
+
+        <x-about />
 
         <footer>
             {{ $articles->links() }}
