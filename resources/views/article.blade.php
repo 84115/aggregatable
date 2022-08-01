@@ -39,6 +39,10 @@
                 margin: 2rem auto 0 auto;
                 border-top: 5px solid black;
             }
+            .tagline a {
+                color: black;
+                text-decoration: none;
+            }
 
             p {
                 text-align: justify;
@@ -102,7 +106,7 @@
     </head>
     <body class="antialiased">
         <header>
-            <div class="tagline">{{ Str::title($article->category) }} Daily</div>
+            <div class="tagline"><a href="{{ url($article->category) }}">{{ Str::title($article->category) }} Daily</a></div>
 
             <h1>{{ $article->title }}</h1>
         </header>

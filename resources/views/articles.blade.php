@@ -39,6 +39,10 @@
                 margin: 2rem auto 0 auto;
                 border-top: 5px solid black;
             }
+            .tagline a {
+                color: black;
+                text-decoration: none;
+            }
 
             p {
                 text-align: justify;
