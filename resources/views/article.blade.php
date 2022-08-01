@@ -110,21 +110,11 @@
             <div class="author"><em>By {{ $article->author }} - {{ $article->created_at->format('Y/m/d') }}</em></div>
             <p>{{ $article->description }}</p>
 
-            <ins class="adsbygoogle"
-                style="display:block; text-align:center;"
-                data-ad-layout="in-article"
-                data-ad-format="fluid"
-                data-ad-client="ca-pub-8615852714164072"
-                data-ad-slot="1456784146"></ins>
+            <x-googlead />
 
             {!! $article->content !!}
 
-            <ins class="adsbygoogle"
-                style="display:block; text-align:center;"
-                data-ad-layout="in-article"
-                data-ad-format="fluid"
-                data-ad-client="ca-pub-8615852714164072"
-                data-ad-slot="1456784146"></ins>
+            <x-googlead />
 
             @if($recommendedArticles->count())
             <hr>
