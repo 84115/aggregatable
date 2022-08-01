@@ -14,6 +14,7 @@ class Article extends Model
     public function getRecommendedArticles()
     {
         return Article::orderByDesc('created_at')
+            ->where('category', '=', $this->category)
             ->where('id', '!=', $this->id)
             ->limit(10)
             ->get();
