@@ -9,14 +9,26 @@ class ArticlesController extends Controller
 {
     public function index()
     {
-        $articles = Article::all();
+        $articles = Article::query()
+            ->orderByDesc('created_at')
+            ->paginate(15);
 
-        $articles->each(function($article) {
-            echo '<a href="' . url($article->category . '/' . $article->slug) . '">' . $article->slug . '</a><br>';
-        });
-
-        exit;
+        return view('articles', [
+            'category' => "everything",
+            'articles' => $articles,
+        ]);
     }
+
+    // public function index()
+    // {
+    //     $articles = Article::all();
+
+    //     $articles->each(function($article) {
+    //         echo '<a href="' . url($article->category . '/' . $article->slug) . '">' . $article->slug . '</a><br>';
+    //     });
+
+    //     exit;
+    // }
 
     public function latest()
     {
