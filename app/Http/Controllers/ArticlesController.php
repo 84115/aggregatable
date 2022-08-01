@@ -25,21 +25,10 @@ class ArticlesController extends Controller
         }
 
         return view('articles', [
-            'category' => "everything",
+            'category' => $category !== url('') ? $category : "everything",
             'articles' => $articles,
         ]);
     }
-
-    // public function index()
-    // {
-    //     $articles = Article::all();
-
-    //     $articles->each(function($article) {
-    //         echo '<a href="' . url($article->category . '/' . $article->slug) . '">' . $article->slug . '</a><br>';
-    //     });
-
-    //     exit;
-    // }
 
     public function latest()
     {
