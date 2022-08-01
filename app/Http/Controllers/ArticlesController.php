@@ -29,6 +29,7 @@ class ArticlesController extends Controller
     {
         return view('article', [
             'article' => $article,
+            'recommendedArticles' => $article->getRecommendedArticles(),
         ]);
     }
 }

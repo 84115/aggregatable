@@ -126,12 +126,13 @@
                 data-ad-client="ca-pub-8615852714164072"
                 data-ad-slot="1456784146"></ins>
 
+            @if($recommendedArticles->count())
             <hr>
 
             <h6 class="recommended">Recommended Articles</h6>
 
             <ul>
-            @foreach ($article->getRecommendedArticles() as $recommended)
+            @foreach ($recommendedArticles as $recommended)
                 <li>
                     <a href="{{ $recommended->getUrl() }}">
                         <img style="margin-bottom: 0" src="{{ $recommended->hero }}" alt="{{ $recommended->title }}">
@@ -140,6 +141,7 @@
                 </li>
             @endforeach
             </ul>
+            @endif
 
             {{-- <hr>
 
