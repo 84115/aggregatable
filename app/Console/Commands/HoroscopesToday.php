@@ -2,12 +2,15 @@
 
 namespace App\Console\Commands;
 
+use App\Console\Commands\Traits\CanGenerateArticleFromDataArray;
 use App\Models\Article;
 use Illuminate\Console\Command;
 use Illuminate\Support\Str;
 
 class HoroscopesToday extends Command
 {
+    use CanGenerateArticleFromDataArray;
+
     /**
      * The name and signature of the console command.
      *
@@ -44,7 +47,6 @@ class HoroscopesToday extends Command
      */
     public function handle()
     {
-        $date = today()->format('Y/m/d');
         $prettyDate = today()->format('l \T\h\e jS \O\f F Y');
 
         $title = "Readings: $prettyDate";
@@ -95,34 +97,13 @@ class HoroscopesToday extends Command
                 'tag' => 'p',
                 'content' => $signData['description'],
             ]);
-            // $html = [
-            //     [
-            //         'tag' => 'p',
-            //         'content' => '',
-            //     ],
-            //     [
-            //         'tag' => 'h3',
-            //         'content' => Str::title($sign),
-            //     ],
-            //     // [
-            //     //     'tag' => 'p',
-            //     //     'date_range' => $signData['date_range'],
-            //     // ],
-            //     [
-            //         'tag' => 'p',
-            //         'content' => $signData['description'],
-            //     ],
-            // ];
 
             sleep(2);
         }
 
         $data['outline'] = $html;
 
-        $article = $this->convertDataArrayToArticleArray($data);
-        $html = $this->convertArticleArrayToHtml($article);
-
-        $this->generateArticleModel($data, $html);
+        $this->generate($data, $html);
 
         return 0;
     }
@@ -147,81 +128,5 @@ class HoroscopesToday extends Command
         $responseData = json_decode($response, TRUE);
 
         return $responseData;
-    }
-
-    // Make this reusable!
-    private function convertDataArrayToArticleArray($data)
-    {
-        $imageIndex = 0;
-
-        $article = [];
-
-        if (! empty($data['imagesWithDetails'][$imageIndex])) {
-            $article[] =             [
-                'tag' => 'img',
-                'src' => $data['imagesWithDetails'][$imageIndex]['url'],
-            ];
-        }
-
-        $imageIndex++;
-
-        foreach ($data['outline'] as $key => $line)
-        {
-            if ($key === 0) {
-                continue;
-            }
-
-            if ($line['tag'] === 'h3') {
-                $article[] = $line;
-
-                if (! empty($data['imagesWithDetails'][$imageIndex])) {
-                    $article[] = [
-                        'tag' => 'img',
-                        'src' => $data['imagesWithDetails'][$imageIndex]['url'],
-                    ];
-                
-                    $imageIndex++;
-                }
-            } else {
-                $article[] = $line;
-            }
-        }
-
-        return $article;
-    }
-
-    private function convertArticleArrayToHtml($article)
-    {
-        $article = collect($article)
-            ->map(function($row) {
-                $tag = $row['tag'] ?? '';
-                $src = $row['src'] ?? '';
-                $content = $row['content'] ?? '';
-
-                if ($tag === 'img') {
-                    return "<$tag src=\"$src\"/>";
-                }
-
-                return "<$tag>$content</$tag>";
-            })
-            ->join('');
-
-        return $article;
-    }
-
-    private function generateArticleModel($data, $html)
-    {
-        $article = new Article;
-        $article->slug = Str::slug($data['title']);
-        $article->title = $data['title'];
-        $article->author = $data['author'];
-        $article->description = $data['description'];
-        $article->hero = isset($data['hero']) ? $data['hero'] : $data['imagesWithDetails'][0]['url'];
-        $article->keywords = $data['keywords'];
-        $article->content = $html;
-        $article->category = $data['category'];
-        $article->save();
-
-        return $article;
     }
 }
