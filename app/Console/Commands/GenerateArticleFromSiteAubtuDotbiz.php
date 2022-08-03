@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Console\Commands\Traits\CanGenerateArticleFromDataArray;
 use App\Models\Article;
 use Faker\Generator as Faker;
 use Illuminate\Console\Command;
@@ -11,6 +12,8 @@ use spekulatius\phpscraper as Scraper;
 
 class GenerateArticleFromSiteAubtuDotbiz extends Command
 {
+    use CanGenerateArticleFromDataArray;
+
     /**
      * The name and signature of the console command.
      *
@@ -61,16 +64,20 @@ class GenerateArticleFromSiteAubtuDotbiz extends Command
             'https://aubtu.biz/2016/',
             // 'https://aubtu.biz/1457/', // cant access images!
             'https://aubtu.biz/12862/',
+            'https://aubtu.biz/8675/',
+            // NOT YET POSTED // https://aubtu.biz/3813/
+            // NOT YET POSTED // https://aubtu.biz/25499/
         ];
 
         $urls = [ $urls[count($urls) - 1] ];
 
         foreach ($urls as $url) {
             $data = $this->fetchHtmlAsDataArray($url);
-            $article = $this->convertDataArrayToArticleArray($data);
-            $html = $this->convertArticleArrayToHtml($article);
+            // $article = $this->convertDataArrayToArticleArray($data);
+            // $html = $this->convertArticleArrayToHtml($article);
     
-            $this->generateArticleModel($data, $html);
+            $this->generate($data, $data['outline']);
+            // $this->generateArticleModel($data, $html);
 
             sleep(4);
         }
@@ -110,78 +117,5 @@ class GenerateArticleFromSiteAubtuDotbiz extends Command
         ];
 
         return $data;
-    }
-
-    private function convertDataArrayToArticleArray($data)
-    {
-        $imageIndex = 0;
-
-        $article = [
-            [
-                'tag' => 'img',
-                'src' => $data['imagesWithDetails'][$imageIndex]['url'],
-            ],
-        ];
-
-        $imageIndex++;
-
-        foreach ($data['outline'] as $key => $line)
-        {
-            if ($key === 0) {
-                continue;
-            }
-
-            if ($line['tag'] === 'h3') {
-                $article[] = $line;
-
-                if (!empty($data['imagesWithDetails'][$imageIndex])) {
-                    $article[] = [
-                        'tag' => 'img',
-                        'src' => $data['imagesWithDetails'][$imageIndex]['url'],
-                    ];
-                
-                    $imageIndex++;
-                }
-            } else {
-                $article[] = $line;
-            }
-        }
-
-        return $article;
-    }
-
-    private function convertArticleArrayToHtml($article)
-    {
-        $article = collect($article)
-            ->map(function($row) {
-                $tag = $row['tag'] ?? '';
-                $src = $row['src'] ?? '';
-                $content = $row['content'] ?? '';
-
-                if ($tag === 'img') {
-                    return "<$tag src=\"$src\"/>";
-                }
-
-                return "<$tag>$content</$tag>";
-            })
-            ->join('');
-
-        return $article;
-    }
-
-    private function generateArticleModel($data, $html)
-    {
-        $article = new Article;
-        $article->slug = Str::slug($data['title']);
-        $article->title = $data['title'];
-        $article->author = $data['author'];
-        $article->description = $data['description'];
-        $article->hero = $data['imagesWithDetails'][0]['url'];
-        $article->keywords = $data['keywords'];
-        $article->content = $html;
-        $article->category = $data['category'];
-        $article->save();
-
-        return $article;
     }
 }
