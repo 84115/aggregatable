@@ -47,10 +47,16 @@ class HoroscopesToday extends Command
         $date = today()->format('Y/m/d');
         $prettyDate = today()->format('l \T\h\e jS \O\f F Y');
 
+        $title = "Readings: $prettyDate";
         $summary = "Get caught up on the todays latest horoscopes.";
 
+        // Don't generate duplicate post(s)
+        if (Article::where('title', '=', $title)->get()->count()) {
+            return 0;
+        }
+
         $data = [
-            'title' => "Readings: $prettyDate",
+            'title' => $title,
             'author' => 'Mystic Meg',
             'description' => $summary,
             'keywords' => 'zodiac, zodiacs, horoscope, horoscopes, ' . implode(', ', $this->signs),
