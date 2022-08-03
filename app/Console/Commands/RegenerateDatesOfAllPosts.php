@@ -28,7 +28,7 @@ class RegenerateDatesOfAllPosts extends Command
      */
     public function handle()
     {
-        $date = today();
+        $date = today()->addDays(1);
 
         $articles = Article::query()
             ->orderByDesc('ID')
@@ -38,7 +38,7 @@ class RegenerateDatesOfAllPosts extends Command
         $counter = 0;
 
         foreach ($articles as $article) {
-            $article->created_at = $date->subDays($counter);
+            $article->created_at = $date->subDays(1);
 
             $article->save();
 
