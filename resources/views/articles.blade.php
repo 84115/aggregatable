@@ -11,6 +11,7 @@
         <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8615852714164072" crossorigin="anonymous"></script>
 
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+        <link rel="icon" type="image/png" href="{{ asset('images/icon.png') }}" />
     </head>
     <body class="antialiased">
         <header>
