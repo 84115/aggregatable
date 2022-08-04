@@ -79,7 +79,7 @@ class GenerateArticleFromSiteDemilked extends Command
             'imagesWithDetails' => collect($web->imagesWithDetails)
                 ->reject(fn($value, $key) => Str::startsWith($value['url'], ['data:image']))
                 ->filter(fn($value, $key) => empty($value['alt']))
-                ->filter(fn($value, $key) => Str::startsWith($value['url'], ['https://cdn3s.com', 'https://i.imgur.com', 'http://aubtu.biz/wp-content', 'https://aubtu.biz/wp-content']))
+                ->filter(fn($value, $key) => Str::startsWith($value['url'], ['https://static.demilked.com/wp-content']))
                 ->values()
                 ->toArray(),
             // --------------------------------------------
@@ -89,7 +89,7 @@ class GenerateArticleFromSiteDemilked extends Command
             'category' => 'learn',
         ];
 
-        dd($data);
+        // dd($data);
 
         return $data;
     }

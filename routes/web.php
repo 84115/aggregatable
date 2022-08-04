@@ -16,6 +16,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [ArticlesController::class, 'index']);
 
+Route::get('learn', [ArticlesController::class, 'index']);
+Route::get('learn/{article}', [ArticlesController::class, 'show']);
+
 Route::get('animals', [ArticlesController::class, 'index']);
 Route::get('animals/{article}', [ArticlesController::class, 'show']);
 
