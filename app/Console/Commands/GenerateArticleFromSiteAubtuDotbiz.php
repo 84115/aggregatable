@@ -65,7 +65,7 @@ class GenerateArticleFromSiteAubtuDotbiz extends Command
             // 'https://aubtu.biz/1457/', // cant access images!
             'https://aubtu.biz/12862/',
             'https://aubtu.biz/8675/',
-            // NOT YET POSTED // https://aubtu.biz/3813/
+            'https://aubtu.biz/3813/', // NOT YET POSTED // https://aubtu.biz/3813/
             // NOT YET POSTED // https://aubtu.biz/25499/
         ];
 
