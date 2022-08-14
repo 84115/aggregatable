@@ -67,6 +67,7 @@ class GenerateArticleFromSiteAubtuDotbiz extends Command
             'https://aubtu.biz/8675/',
             'https://aubtu.biz/3813/', // NOT YET POSTED // https://aubtu.biz/3813/
             'https://aubtu.biz/25499/', // NOT YET POSTED // https://aubtu.biz/25499/
+            'https://aubtu.biz/85593/',
         ];
 
         $urls = [ $urls[count($urls) - 1] ];
