@@ -4,7 +4,7 @@ namespace App\Console\Commands;
 
 use App\Console\Commands\Traits\CanGenerateArticleFromDataArray;
 
-class HoroscopesToday extends HoroscopesCommand
+class HoroscopesYesterday extends HoroscopesCommand
 {
     use CanGenerateArticleFromDataArray;
 
@@ -13,14 +13,14 @@ class HoroscopesToday extends HoroscopesCommand
      *
      * @var string
      */
-    protected $signature = 'horoscopes:today';
+    protected $signature = 'horoscopes:yesterday';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Generate todays horoscopes.';
+    protected $description = 'Generate yesterdays horoscopes.';
 
     /**
      * Execute the console command.
@@ -29,7 +29,7 @@ class HoroscopesToday extends HoroscopesCommand
      */
     public function handle()
     {
-        $this->generateHoroscopes('today', today());
+        $this->generateHoroscopes('yesterday', today()->subDays(1));
 
         return 0;
     }
