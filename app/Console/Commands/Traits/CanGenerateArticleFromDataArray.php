@@ -7,12 +7,12 @@ use Illuminate\Support\Str;
 
 trait CanGenerateArticleFromDataArray
 {
-    public function generate($data, $html)
+    public function generate($data, $html, $date=null)
     {
         $article = $this->convertDataArrayToArticleArray($data);
         $html = $this->convertArticleArrayToHtml($article);
 
-        $output = $this->generateArticleModel($data, $html);
+        $output = $this->generateArticleModel($data, $html, $date);
 
         return $output;
     }
@@ -77,7 +77,7 @@ trait CanGenerateArticleFromDataArray
         return $article;
     }
 
-    public function generateArticleModel($data, $html)
+    public function generateArticleModel($data, $html, $date=null)
     {
         $article = new Article;
         $article->slug = Str::slug($data['title']);
@@ -88,6 +88,12 @@ trait CanGenerateArticleFromDataArray
         $article->keywords = $data['keywords'];
         $article->content = $html;
         $article->category = $data['category'];
+
+        if (! is_null($date)) {
+            $article->created_at = $date;
+            $article->updated_at = $date;
+        }
+
         $article->save();
 
         return $article;

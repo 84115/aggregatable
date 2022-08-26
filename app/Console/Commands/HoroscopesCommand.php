@@ -103,7 +103,7 @@ class HoroscopesCommand extends Command
 
         $data['outline'] = $html;
 
-        $this->generate($data, $html);
+        $this->generate($data, $html, $date);
     }
 
     private function aztro($sign, $day = 'today') {
